@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>WeatherFlow | Weather Application</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+</head>
+
+<body>
+
+  <div class="weather-app">
+
+    <!-- HEADER -->
+    <header class="app-header">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          <i class="fa-solid fa-cloud-sun"></i>
+        </div>
+
+        <div>
+          <h1>WeatherFlow</h1>
+          <p>Your real-time weather companion</p>
+        </div>
+
+      </div>
+
+      <button id="themeToggle" class="icon-button" aria-label="Toggle theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+    </header>
+
+
+    <!-- SEARCH -->
+    <section class="search-section">
+
+      <div class="search-box">
+
+        <div class="input-wrapper">
+
+          <i class="fa-solid fa-location-dot"></i>
+
+          <input
+            type="text"
+            id="cityInput"
+            placeholder="Search for a city..."
+            autocomplete="off"
+          >
+
+        </div>
+
+        <button id="searchBtn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Search</span>
+        </button>
+
+      </div>
+
+      <button id="locationBtn">
+        <i class="fa-solid fa-crosshairs"></i>
+        Use My Location
+      </button>
+
+    </section>
+
+
+    <!-- LOADING -->
+    <div id="loading" class="hidden">
+
+      <div class="loading-content">
+        <div class="spinner"></div>
+        <p>Fetching latest weather...</p>
+      </div>
+
+    </div>
+
+
+    <!-- ERROR -->
+    <div id="errorMessage" class="hidden">
+
+      <i class="fa-solid fa-circle-exclamation"></i>
+
+      <p>City not found. Please try again.</p>
+
+    </div>
+
+
+    <!-- CURRENT WEATHER -->
+    <section id="weatherSection" class="weather-card">
+
+      <div class="weather-top">
+
+        <div class="location-info">
+
+          <div class="location-label">
+            <i class="fa-solid fa-location-dot"></i>
+            CURRENT WEATHER
+          </div>
+
+          <h2 id="cityName">Kyoto</h2>
+
+          <p id="dateTime">
+            Loading local time...
+          </p>
+
+        </div>
+
+
+        <div class="weather-status">
+
+          <div class="status-dot"></div>
+
+          <span>Live Weather</span>
+
+        </div>
+
+      </div>
+
+
+      <!-- MAIN WEATHER -->
+      <div class="main-weather">
+
+        <div class="temperature-section">
+
+          <div id="weatherEmoji" class="weather-emoji">
+            ☀️
+          </div>
+
+          <div>
+
+            <div id="temperature">
+              25°C
+            </div>
+
+            <p class="feels-like">
+              Current temperature
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="weather-description">
+
+          <div class="condition-icon">
+            <i class="fa-solid fa-cloud"></i>
+          </div>
+
+          <div>
+
+            <h3 id="weatherCondition">
+              Clear Sky
+            </h3>
+
+            <p>
+              Updated in real time
+            </p>
+
+          </div>
+
+
+          <button id="unitToggle">
+            °C / °F
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- WEATHER DETAILS -->
+      <div class="weather-details">
+
+        <div class="detail-card">
+
+          <div class="detail-icon humidity-icon">
+            <i class="fa-solid fa-droplet"></i>
+          </div>
+
+          <div>
+            <p>Humidity</p>
+            <h3 id="humidity">60%</h3>
+          </div>
+
+        </div>
+
+
+        <div class="detail-card">
+
+          <div class="detail-icon wind-icon">
+            <i class="fa-solid fa-wind"></i>
+          </div>
+
+          <div>
+            <p>Wind Speed</p>
+            <h3 id="windSpeed">-- km/h</h3>
+          </div>
+
+        </div>
+
+
+        <div class="detail-card">
+
+          <div class="detail-icon sunrise-icon">
+            <i class="fa-solid fa-sun"></i>
+          </div>
+
+          <div>
+            <p>Sunrise</p>
+            <h3 id="sunrise">--:--</h3>
+          </div>
+
+        </div>
+
+
+        <div class="detail-card">
+
+          <div class="detail-icon sunset-icon">
+            <i class="fa-solid fa-moon"></i>
+          </div>
+
+          <div>
+            <p>Sunset</p>
+            <h3 id="sunset">--:--</h3>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FORECAST -->
+    <section class="forecast-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <p class="section-label">
+            WEEKLY OUTLOOK
+          </p>
+
+          <h2>
+            5-Day Forecast
+          </h2>
+
+        </div>
+
+        <div class="forecast-badge">
+          <i class="fa-solid fa-calendar-days"></i>
+          Next 5 Days
+        </div>
+
+      </div>
+
+
+      <div
+        id="forecastContainer"
+        class="forecast-container"
+      ></div>
+
+    </section>
+
+
+    <!-- RECENT SEARCHES -->
+    <section class="recent-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <p class="section-label">
+            QUICK ACCESS
+          </p>
+
+          <h2>
+            Recent Searches
+          </h2>
+
+        </div>
+
+
+        <button
+          id="clearRecentBtn"
+          class="clear-recent"
+        >
+          <i class="fa-solid fa-trash"></i>
+          Clear
+        </button>
+
+      </div>
+
+
+      <div
+        id="recentCities"
+        class="recent-cities"
+      >
+        <p class="empty-recent">
+          No recent searches yet.
+        </p>
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+      <div>
+
+        <i class="fa-solid fa-cloud-sun"></i>
+
+        <span>
+          WeatherFlow
+        </span>
+
+      </div>
+
+      <p>
+        Weather data powered by Open-Meteo
+      </p>
+
+    </footer>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
